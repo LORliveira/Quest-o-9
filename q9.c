@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-// Calcula o MDC usando o algoritmo de Euclides
+// Calcula o MDC usando o algoritmo de Euclide
 int mdc(int a, int b) {
     int resto;
     while (b != 0) {
@@ -15,6 +15,7 @@ int mdc(int a, int b) {
 int coprimos(int a, int b) {
     return mdc(a, b) == 1;
 }
+
 
 // Retorna o inverso modular
 int inverso_modular(int g, int n, int *inverso) {
@@ -35,6 +36,7 @@ int inverso_modular(int g, int n, int *inverso) {
     *inverso = t;
     return 1;
 }
+
 
 // Exponenciação modular
 int pot_m(int base, int expoente, int modulo) {
@@ -57,6 +59,8 @@ int primo(int n) {
             return 0;
     return 1;
 }
+
+
 
 // Calcula a função de Euler
 int quoci(int n) {
@@ -87,6 +91,7 @@ int main() {
     }
     printf("G = %d e n = %d são coprimos.\n", G, n);
 
+    
     printf("\n 2: O inverso de G em Z_%d ==\n", n);
     int G_inv;
     if (!inverso_modular(G, n, &G_inv)) {
@@ -94,7 +99,6 @@ int main() {
         return 1;
     }
     printf("Inverso de G é: %d\n", G_inv);
-
     printf("\n 3: Calculando a = H * G⁻¹ mod n ==\n");
     int a = (H * G_inv) % n;
     printf("Result: a = %d\n", a);
@@ -105,7 +109,6 @@ int main() {
     } else {
         printf("a = %d e n₁ = %d são coprimos.\n", a, n1);
     }
-
     printf("\n 5: Se n₁ = %d é primo ==\n", n1);
     int x1;
     if (primo(n1)) {
@@ -115,21 +118,19 @@ int main() {
         x1 = quoci(n1);
         printf("n₁ não é primo. Teorema de Euler: %d\n", x1);
     }
-
     printf("\n 6: x = %d em x = x₁ * q + r:\n", x);
     int q = x / x1;
     int r = x % x1;
     printf("q: %d, r: %d\n", q, r);
 
+    
     printf("\n 7: Calculando potências:\n");
     int x2 = pot_m(a, x1, n1);
     int x2q = pot_m(x2, q, n1);
     int ar = pot_m(a, r, n1);
-
     printf("a^x₁ mod n₁:  %d\n", x2);
     printf("x₂^q mod n₁: %d\n", x2q);
     printf("a^r mod n₁: %d\n", ar);
-
     printf("\n 8: Calculando resultado final: \n");
     int resultado = (x2q * ar) % n1;
     printf("Resultado final: %d\n", resultado);
